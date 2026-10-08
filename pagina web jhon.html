@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportNova  | Artículos Deportivos</title>
+
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f4f7fb;
+            color:#222;
+        }
+
+        header{
+            background:linear-gradient(90deg,#0f172a,#1e3a8a,#2563eb);
+            color:white;
+            padding:20px;
+            position:sticky;
+            top:0;
+            z-index:1000;
+            box-shadow:0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .contenedor{
+            width:90%;
+            max-width:1300px;
+            margin:auto;
+        }
+
+        .topbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .logo{
+            font-size:35px;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+
+        nav a{
+            color:white;
+            text-decoration:none;
+            margin:0 15px;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        nav a:hover{
+            color:#93c5fd;
+        }
+
+        .hero{
+            background:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvo-Jmckq6wjm8N20KLkbChUa70_0Yi35dtVt2VUQaCA&s=10) center/cover;
+            height:85vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            color:white;
+            position:relative;
+        }
+
+        .hero::before{
+            content:"";
+            position:absolute;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.55);
+        }
+
+        .hero-content{
+            position:relative;
+            z-index:2;
+            max-width:800px;
+        }
+
+        /* Estilo para el logo en la esquina de la portada */
+        .hero-logo-esquina {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 3;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        .hero h1{
+            font-size:60px;
+            margin-bottom:20px;
+        }
+
+        .hero p{
+            font-size:22px;
+            margin-bottom:30px;
+        }
+
+        .btn{
+            background:#2563eb;
+            color:white;
+            padding:15px 35px;
+            text-decoration:none;
+            border-radius:10px;
+            font-size:18px;
+            transition:0.3s;
+            display:inline-block;
+        }
+
+        .btn:hover{
+            background:#1d4ed8;
+            transform:scale(1.05);
+        }
+
+        section{
+            padding:70px 0;
+        }
+
+        .titulo{
+            text-align:center;
+            margin-bottom:50px;
+        }
+
+        .titulo h2{
+            font-size:42px;
+            color:#0f172a;
+            margin-bottom:10px;
+        }
+
+        .titulo p{
+            color:#555;
+            font-size:18px;
+        }
+
+        .productos{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:30px;
+        }
+
+        .card{
+            background:white;
+            border-radius:15px;
+            overflow:hidden;
+            box-shadow:0 6px 18px rgba(0,0,0,0.15);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-10px);
+        }
+
+        .card img{
+            width:100%;
+            height:250px;
+            object-fit:cover;
+        }
+
+        .info{
+            padding:20px;
+        }
+
+        .info h3{
+            margin-bottom:10px;
+            color:#1e3a8a;
+        }
+
+        .precio{
+            font-size:28px;
+            color:#dc2626;
+            margin:15px 0;
+            font-weight:bold;
+        }
+
+        .especificaciones{
+            margin-top:15px;
+            line-height:1.8;
+            color:#444;
+        }
+
+        .comprar{
+            margin-top:20px;
+            width:100%;
+            border:none;
+            padding:14px;
+            background:#16a34a;
+            color:white;
+            font-size:17px;
+            border-radius:8px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .comprar:hover{
+            background:#15803d;
+        }
+
+        .beneficios{
+            background:#0f172a;
+            color:white;
+        }
+
+        .beneficios-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:25px;
+        }
+
+        .beneficio{
+            background:#1e293b;
+            padding:30px;
+            border-radius:15px;
+            text-align:center;
+        }
+
+        .beneficio h3{
+            margin:20px 0;
+        }
+
+        .galeria{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+        }
+
+        .galeria img{
+            width:100%;
+            height:220px;
+            object-fit:cover;
+            border-radius:12px;
+        }
+
+        footer{
+            background:#020617;
+            color:white;
+            text-align:center;
+            padding:30px;
+        }
+
+        /* MODAL */
+
+        .modal{
+            display:none;
+            position:fixed;
+            z-index:9999;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.8);
+            overflow:auto;
+        }
+
+        .modal-content{
+            background:white;
+            margin:40px auto;
+            padding:30px;
+            width:90%;
+            max-width:700px;
+            border-radius:15px;
+            animation:aparecer 0.4s;
+        }
+
+        @keyframes aparecer{
+            from{
+                transform:scale(0.8);
+                opacity:0;
+            }
+            to{
+                transform:scale(1);
+                opacity:1;
+            }
+        }
+
+        .cerrar{
+            float:right;
+            font-size:30px;
+            cursor:pointer;
+            color:red;
+        }
+
+        form{
+            margin-top:20px;
+        }
+
+        form input,
+        form textarea,
+        form select{
+            width:100%;
+            padding:14px;
+            margin:12px 0;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:16px;
+        }
+
+        form button{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:15px;
+            width:100%;
+            border-radius:8px;
+            font-size:18px;
+            cursor:pointer;
+        }
+
+        form button:hover{
+            background:#1d4ed8;
+        }
+
+        @media(max-width:768px){
+
+            .hero h1{
+                font-size:38px;
+            }
+
+            .hero p{
+                font-size:18px;
+            }
+
+            nav{
+                margin-top:15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="contenedor topbar">
+
+            <div class="logo">
+                SPORTNOVA 
+            </div>
+
+            <nav>
+                <a href="#">Inicio</a>
+                <a href="#productos">Productos</a>
+                <a href="#beneficios">Beneficios</a>
+                <a href="#galeria">Galería</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+        </div>
+
+    </header> 
+
+
+
+    <!-- PORTADA -->
+
+   
+
+    <section class="hero">
+
+      <!-- Logo SVG en la esquina superior izquierda -->
+        <svg class="hero-logo-esquina" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="orangeFire" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <path d="M 30,110 A 70,70 0 1,1 170,110" fill="none" stroke="url(#blueGlow)" stroke-width="10" stroke-linecap="round"/>
+            <path d="M 45,125 A 55,55 0 0,0 155,125" fill="none" stroke="url(#orangeFire)" stroke-width="6" stroke-linecap="round"/>
+            <path d="M 60,115 L 110,35 L 95,85 L 145,85 L 85,155 L 100,105 Z" fill="url(#blueGlow)"/>
+            <path d="M 115,45 L 145,85 L 120,85 Z" fill="url(#orangeFire)"/>
+            <text x="100" y="180" font-family="Arial, sans-serif" font-weight="900" font-size="18" fill="#ffffff" text-anchor="middle" letter-spacing="2">SPORTNOVA</text>
+        </svg>
+
+        <div class="hero-content">
+
+
+            <h1>
+                La Mejor Tienda de Artículos Deportivos
+            </h1>
+
+            <p>
+                Equipamiento profesional para fútbol,
+                basquet, running, ciclismo y más.
+            </p>
+
+            <a href="#productos" class="btn">
+                Explorar Productos
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- PRODUCTOS -->
+
+    <section id="productos">
+
+        <div class="contenedor">
+
+            <div class="titulo">
+
+                <h2>Productos Destacados</h2>
+
+                <p>
+                    Calidad profesional para atletas
+                    y amantes del deporte.
+                </p>
+
+            </div>
+
+            <div class="productos">
+
+                <!-- PRODUCTO 1 -->
+
+                <div class="card">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJHXCEBMkYFhI0USTegFL4qmrHxOWhMwwhNKHrB5JEfw&s=10" alt="">
+
+                    <div class="info">
+
+                        <h3>
+                            Balón Profesional de Fútbol
+                        </h3>
+
+                        <p>
+                            Balón resistente de alta competición.
+                        </p>
+
+                        <div class="precio">
+                            Bs. 320
+                        </div>
+
+                        <div class="especificaciones">
+                            ✔ Material premium<br>
+                            ✔ Uso profesional<br>
+                            ✔ Alta durabilidad<br>
+                            ✔ Diseño aerodinámico
+                        </div>
+
+                        <button class="comprar"
+                        onclick="abrirModal('Balón Profesional de Fútbol','Bs. 320')">
+                            Comprar Ahora
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- PRODUCTO 2 -->
+
+                <div class="card">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAyDmK7PAdHLSLipEn0cQGJL2BBZW0Bes1GGQUDKB3Lw&s=10" alt="">
+
+                    <div class="info">
+
+                        <h3>
+                            Zapatillas Running Elite
+                        </h3>
+
+                        <p>
+                            Máxima comodidad y rendimiento.
+                        </p>
+
+                        <div class="precio">
+                            Bs. 850
+                        </div>
+
+                        <div class="especificaciones">
+                            ✔ Suela antideslizante<br>
+                            ✔ Tecnología de amortiguación<br>
+                            ✔ Ultraligeras<br>
+                            ✔ Diseño moderno
+                        </div>
+
+                        <button class="comprar"
+                        onclick="abrirModal('Zapatillas Running Elite','Bs. 850')">
+                            Comprar Ahora
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- PRODUCTO 3 -->
+
+                <div class="card">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm3pKZb-Hl8zhBx3ue4W1fsrR6whi2Z2RJIju-BLCJEQ&s=10" alt="">
+
+                    <div class="info">
+
+                        <h3>
+                            balon de basquet
+                        </h3>
+
+                        <p>
+                            para el deprte de basquet
+                        </p>
+
+                        <div class="precio">
+                            Bs. 150..
+                        </div>
+
+                        <div class="especificaciones">
+                            ✔ Acero reforzado<br>
+                            ✔ Agarre ergonómico<br>
+                            ✔ Alta resistencia<br>
+                            ✔ Uso intensivo
+                        </div>
+
+                        <button class="comprar"
+                        onclick="abrirModal('Mancuernas Profesionales','Bs. 560')">
+                            Comprar Ahora
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- PRODUCTO 4 -->
+
+                <div class="card">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR10DhcTKIuFFZhkZnKSeF5v1dizzKG_NDdQb-udyJ06w&s=10" alt="">
+
+                    <div class="info">
+
+                        <h3>
+                            Bicicleta Deportiva XT
+                        </h3>
+
+                        <p>
+                            Rendimiento extremo para aventuras.
+                        </p>
+
+                        <div class="precio">
+                            Bs. 4.500
+                        </div>
+
+                        <div class="especificaciones">
+                            ✔ Suspensión avanzada<br>
+                            ✔ Marco de aluminio<br>
+                            ✔ Frenos de disco<br>
+                            ✔ Velocidad profesional
+                        </div>
+
+                        <button class="comprar"
+                        onclick="abrirModal('Bicicleta Deportiva XT','Bs. 4.500')">
+                            Comprar Ahora
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_1SurUvRdOAABYIoLUwEIeyoYnHu2PFRr_ifVq8OgYw&s=10" alt="">
+
+                    <div class="info">
+
+                        <h3>
+                            Guantes de gimnasio con muñequera
+                        </h3>
+
+                        <p>
+                            Para gimnasio
+                        </p>
+
+                        <div class="precio">
+                           Bs. 80..
+                        </div>
+
+                        <div class="especificaciones">
+                            ✔ Palma acolchada con gel antideslisante<br>
+                            ✔ Tela microperforadora<br>
+                            ✔ Diseño de extraccion rapida entre los dedos<br>
+                            ✔ Evita lesiones
+                        </div>
+
+                        <button class="comprar"
+                        onclick="abrirModal('Guantes de gimnasio con muñequera','Bs.80')">
+                            Comprar Ahora
+                        </button>
+
+                    </div>
+
+                </div>
+
+                
+                <div class="card">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW2FOjXGoWQpHsp1MBkEf-tUbXTgoqIii5OU9QiPDd-A&s=10" alt="">
+
+                    <div class="info">
+
+                        <h3>
+                            Polera deportiva transpirable 
+                        </h3>
+
+                        <p>
+                            Para el deporte
+                        </p>
+
+                        <div class="precio">
+                           Bs. 100.
+                        </div>
+
+                        <div class="especificaciones">
+                            ✔ Tela de sacado rapido y ultra ligera<br>
+                            ✔ Control de humedad<br>
+                            ✔ Costuras planas <br>
+                            ✔ Diseño adaptado al movimiento
+                        </div>
+
+                        <button class="comprar"
+                        onclick="abrirModal('Polera deportiva transpirable ','Bs.100')">
+                            Comprar Ahora
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXIzVZjGl7nJxb2wtbXAEW38Ehc8m09AVib_4pXpTjPQ&s=10" alt="">
+
+                    <div class="info">
+
+                        <h3>
+                            Guantes de arquero profecional con varillas
+                        </h3>
+
+                        <p>
+                            Para un portero profecional 
+                        </p>
+
+                        <div class="precio">
+                           Bs. 250.
+                        </div>
+
+                        <div class="especificaciones">
+                            ✔ Varillas de proteccion para prevenir torceduras<br>
+                            ✔ Latexde alto agarre<br>
+                            ✔ Palma antideslisante<br>
+                            ✔ Muñequera elastica
+                        </div>
+
+                        <button class="comprar"
+                        onclick="abrirModal('Guantes de arquero profesional con varillas ','Bs.100')">
+                            Comprar Ahora
+                        </button>
+
+                    </div>
+
+                </div>
+
+      <div class="card">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQiJEd9MuIfPwJYfjAhk3uQqZQ4xeHXDmUhzwm3GW2Gw&s=10" alt="">
+
+                    <div class="info">
+
+                        <h3>
+                            Guantes de boxeo profecionanal de cuero 
+                        </h3>
+
+                        <p>
+                            Para boxeo  
+                        </p>
+
+                        <div class="precio">
+                           Bs. 400.
+                        </div>
+
+                        <div class="especificaciones">
+                            ✔ Fabricados en cuero de alta calidad<br>
+                            ✔ Relleno de espuma multicapa<br>
+                            ✔ Proteje la muñeca <br>
+                            ✔ Costuras reforzadas 
+                        </div>
+
+                        <button class="comprar"
+                        onclick="abrirModal('Guantes de boxeo profecional de cuero  ','Bs.400')">
+                            Comprar Ahora
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                  
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- BENEFICIOS -->
+
+    <section class="beneficios" id="beneficios">
+
+        <div class="contenedor">
+
+            <div class="titulo">
+
+                <h2 style="color:white;">
+                    ¿Por Qué Elegir SPORTNOVA ?
+                </h2>
+
+            </div>
+
+            <div class="beneficios-grid">
+
+                <div class="beneficio">
+                    <h3>🚚 Envíos Rápidos</h3>
+                    <p>
+                        Entregas seguras a todo el país.
+                    </p>
+                </div>
+
+                <div class="beneficio">
+                    <h3>🏆 Calidad Premium</h3>
+                    <p>
+                        Productos deportivos profesionales.
+                    </p>
+                </div>
+
+                <div class="beneficio">
+                    <h3>💳 Pago Seguro</h3>
+                    <p>
+                        Métodos de pago protegidos.
+                    </p>
+                </div>
+
+                <div class="beneficio">
+                    <h3>📞 Atención 24/7</h3>
+                    <p>
+                        Soporte para nuestros clientes.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- GALERIA -->
+
+    <section id="galeria">
+
+        <div class="contenedor">
+
+            <div class="titulo">
+
+                <h2>Galería Deportiva</h2>
+
+                <p>
+                    Espacios para colocar imágenes.
+                </p>
+
+            </div>
+
+            <div class="galeria">
+
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAMI8HsMSbTYyKuFcP03BgzXS3YipDpzQK205YoLujMQ&s=10" alt="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ2Oth9s3iFyEZ8NnaDnq-DcGuB1mGIunO_AamM3JDLg&s=10" alt="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_kGy82xgr9OR-IDtPeFnfcESOfSHcyQ-wk_iqboXmag&s=10" alt="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQ0lBoQ2cadCqlIbxgjX9z_Csd9DkJ0CDVcqp983nQCA&s=10" alt="">
+
+            </div>
+
+        </div>
+
+    </section>
+
+  
+    <!-- VENTANA DE COMPRA -->
+
+    <div id="modalCompra" class="modal">
+
+        <div class="modal-content">
+
+            <span class="cerrar"
+            onclick="cerrarModal()">
+                &times;
+            </span>
+
+            <h2>
+                Formulario de Compra
+            </h2>
+
+            <form>
+
+                <input type="text"
+                id="producto"
+                readonly>
+
+                <input type="text"
+                id="precio"
+                readonly>
+
+                <input type="text"
+                placeholder="Nombre completo"
+                required>
+
+                <input type="email"
+                placeholder="Correo electrónico"
+                required>
+
+                <input type="text"
+                placeholder="Dirección de envío"
+                required>
+
+                <input type="number"
+                placeholder="Cantidad"
+                required>
+
+                <select required>
+
+                    <option value="">
+                        Método de pago
+                    </option>
+
+                    <option>
+                        Tarjeta de crédito
+                    </option>
+
+                    <option>
+                        Tarjeta de débito
+                    </option>
+
+                    <option>
+                        Transferencia bancaria
+                    </option>
+
+                     <option>
+                        QR
+                    </option>
+
+                </select>
+<!-- BOTÓN DE CONFIRMAR COMPRA PARA WHATSAPP -->
+<button type="button" onclick="confirmarCompraWhatsApp()" class="btn-confirmar-compra">
+  📲 Confirmar compra
+</button>
+
+<style>
+  .btn-confirmar-compra {
+    background-color: #25D366;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+  }
+
+  .btn-confirmar-compra:hover {
+    background-color: #1eb853;
+    transform: scale(1.03);
+  }
+</style>
+
+<script>
+  function confirmarCompraWhatsApp() {
+    // Tu número de WhatsApp con código de país (591)
+    const numeroWhatsApp = "59173448794";
+
+    // Mensaje predeterminado que te llegará al WhatsApp
+    const mensaje = "Hola SportNova, quiero confirmar mi compra de un producto.";
+
+    // Creación del enlace hacia WhatsApp
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+
+    // Abre WhatsApp en una pestaña nueva
+    window.open(url, '_blank');
+  }
+</script>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+  
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function abrirModal(producto,precio){
+
+            document.getElementById("modalCompra").style.display="block";
+
+            document.getElementById("producto").value=producto;
+
+            document.getElementById("precio").value=precio;
+        }
+
+        function cerrarModal(){
+
+            document.getElementById("modalCompra").style.display="none";
+        }
+
+        window.onclick=function(event){
+
+            let modal=document.getElementById("modalCompra");
+
+            if(event.target==modal){
+
+                modal.style.display="none";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
+
+ <!-- SECCIÓN CONTACTO -->
+    <section class="contacto-section" id="contacto">
+        <div class="contenedor">
+            <div class="titulo">
+                <h2>Contáctanos</h2>
+                <p>¿Tienes dudas o deseas realizar una consulta directa? Estamos a tu servicio.</p>
+            </div>
+            <div class="contacto-card">
+                <h3>📱 Atención Personalizada</h3>
+                <p><strong>WhatsApp / Celular:</strong> 73448794</p>
+                <p><strong>Ubicación:</strong> Bolivia</p>
+                <p>Haz clic abajo para chatear con nosotros directamente:</p>
+                <a href="https://wa.me/59173448794?text=Hola%20SportNova,%20quisiera%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20productos." target="_blank" class="btn-ws">
+                    💬 Chatear por WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; SPORTNOVA - Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- MODAL DE COMPRA -->
+    <div id="modalCompra" class="modal">
+        <div class="modal-content">
+            <span class="cerrar" onclick="cerrarModal()">&times;</span>
+            <h2 id="modalProducto" style="color:#1e3a8a; margin-bottom:10px;">Realizar Compra</h2>
+            <p id="modalPrecio" style="color:#dc2626; font-size:22px; font-weight:bold; margin-bottom:15px;"></p>
+
+            <form onsubmit="enviarPedidoWhatsApp(event)">
+
+
+  
